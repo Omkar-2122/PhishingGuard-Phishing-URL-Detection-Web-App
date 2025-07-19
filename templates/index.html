@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishingGuard - URL Scanner</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>PhishingGuard</h1>
+            <p class="subtitle">Real-Time URL Phishing Detection</p>
+        </header>
+
+        <main class="main-content">
+            <div class="scan-box">
+                <form id="scanForm" class="scan-form">
+                    <div class="input-group">
+                        <input type="url" id="urlInput" name="url" required
+                               placeholder="Enter URL to scan (e.g., https://example.com)"
+                               pattern="https?://.*"
+                               title="Please enter a valid URL starting with http:// or https://">
+                        <button type="submit" class="scan-button">
+                            <span class="button-text">Scan URL</span>
+                            <div class="spinner hidden"></div>
+                        </button>
+                    </div>
+                </form>
+
+                <div id="resultBox" class="result-box hidden">
+                    <div class="result-header">
+                        <h3>Scan Results</h3>
+                        <span class="close-button">&times;</span>
+                    </div>
+                    <div class="result-content">
+                        <div class="status-indicator">
+                            <div class="indicator-circle"></div>
+                            <span class="status-text"></span>
+                        </div>
+                        <div class="details">
+                            <p class="scanned-url"></p>
+                            <p class="confidence"></p>
+                        </div>
+                        <div class="features-section">
+                            <h4>URL Analysis Features</h4>
+                            <div class="features-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>Powered by Machine Learning • Built with FastAPI</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scanForm = document.getElementById('scanForm');
+            const resultBox = document.getElementById('resultBox');
+            const closeButton = document.querySelector('.close-button');
+            const spinner = document.querySelector('.spinner');
+            const buttonText = document.querySelector('.button-text');
+            const urlInput = document.getElementById('urlInput');
+
+            // Add input validation
+            urlInput.addEventListener('input', function() {
+                if (urlInput.validity.typeMismatch) {
+                    urlInput.setCustomValidity('Please enter a valid URL starting with http:// or https://');
+                } else {
+                    urlInput.setCustomValidity('');
+                }
+            });
+
+            scanForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                spinner.classList.remove('hidden');
+                buttonText.classList.add('hidden');
+                resultBox.classList.add('hidden');
+
+                const formData = new FormData();
+                formData.append('url', urlInput.value);
+
+                try {
+                    const response = await fetch('/scan', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    
+                    // Update result box
+                    const indicator = document.querySelector('.indicator-circle');
+                    const statusText = document.querySelector('.status-text');
+                    const scannedUrl = document.querySelector('.scanned-url');
+                    const confidence = document.querySelector('.confidence');
+                    const featuresGrid = document.querySelector('.features-grid');
+
+                    // Clear previous features
+                    featuresGrid.innerHTML = '';
+
+                    // Update status
+                    if (data.is_phishing) {
+                        indicator.className = 'indicator-circle danger';
+                        statusText.textContent = 'Potential Phishing URL';
+                        statusText.className = 'status-text danger';
+                    } else {
+                        indicator.className = 'indicator-circle safe';
+                        statusText.textContent = 'Safe URL';
+                        statusText.className = 'status-text safe';
+                    }
+
+                    // Update details
+                    scannedUrl.textContent = `URL: ${data.url}`;
+                    confidence.textContent = `Confidence: ${(data.confidence * 100).toFixed(1)}%`;
+
+                    // Add features
+                    for (const [key, value] of Object.entries(data.features)) {
+                        const featureElement = document.createElement('div');
+                        featureElement.className = 'feature-item';
+                        featureElement.innerHTML = `
+                            <span class="feature-name">${key.replace(/_/g, ' ')}</span>
+                            <span class="feature-value">${value}</span>
+                        `;
+                        featuresGrid.appendChild(featureElement);
+                    }
+
+                    resultBox.classList.remove('hidden');
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while scanning the URL. Please try again.');
+                }
+
+                // Hide loading state
+                spinner.classList.add('hidden');
+                buttonText.classList.remove('hidden');
+            });
+
+            closeButton.addEventListener('click', function() {
+                resultBox.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
