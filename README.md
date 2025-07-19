@@ -44,8 +44,6 @@ PhishingGuard/
 yaml
 Always show details
 
-Copy
-
 ---
 
 
