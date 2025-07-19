@@ -44,74 +44,49 @@ PhishingGuard/
 ---
 
 
-## 💻 How to Run the Project Locally
-
-### 1. Clone the Repository
+## ⚙️ How to Run
 
 ```bash
+# Clone repo
 git clone https://github.com/Omkar-2122/PhishingGuard-Phishing-URL-Detection-Web-App.git
 cd PhishingGuard-Phishing-URL-Detection-Web-App
-2. Create and Activate a Virtual Environment (Optional but Recommended)
-bash
-Always show details
 
-Copy
+# (Optional) Create virtual environment
 python -m venv venv
-# Activate:
-# On Windows:
-venv\\Scripts\\activate
-# On macOS/Linux:
-source venv/bin/activate
-3. Install Required Packages
-bash
-Always show details
+venv\Scripts\activate  # Windows
+# source venv/bin/activate  # macOS/Linux
 
-Copy
+# Install dependencies
 pip install -r requirements.txt
-4. Train the ML Model (Skip if model.pkl already exists)
-bash
-Always show details
 
-Copy
+# Train model (only once)
 python train_model.py
-5. Run the Flask App
-bash
-Always show details
 
-Copy
+# Run the app
 python app.py
-Open your browser and go to: http://127.0.0.1:5000
+Visit: http://127.0.0.1:5000
 
-📦 Example requirements.txt
-txt
-Always show details
+📦 Tech Stack
+Python, Flask
 
-Copy
-Flask
-pandas
-numpy
-scikit-learn
-joblib
-You can generate this with:
+Scikit-learn, Pandas
 
-bash
-Always show details
-
-Copy
-pip freeze > requirements.txt
-🧠 Dataset & Model
-Dataset: Kaggle – Phishing Site URLs
-
-Model: Random Forest Classifier (model.pkl)
-
-Training Script: train_model.py
+HTML/CSS
 
 👨‍💻 Author
 Omkar Chavan
-🎓 Final Year B.Tech – CSE | Cybersecurity Enthusiast
-📧 Email: omkarchavan2122@gmail.com
-🌐 GitHub: Omkar-2122
+🎓 B.Tech – CSE | Cybersecurity Enthusiast
+📧 omkarchavan2122@gmail.com
+🔗 GitHub: Omkar-2122
 
 ⚠️ Disclaimer
-This tool is created for educational and demonstration purposes only.
-Do not rely on it as the only security solution. Always follow best practices when handling URLs and web security.
+For educational purposes only.
+Do not rely on this tool as a complete security solution.
+
+yaml
+Copy
+Edit
+
+---
+
+Let me know if you want it as a downloadable `.md` or `.pdf`.
