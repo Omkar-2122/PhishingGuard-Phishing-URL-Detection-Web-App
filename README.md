@@ -28,6 +28,7 @@ PhishingGuard is a real-time web application that detects and classifies phishin
 ---
 
 PhishingGuard/
+
 ├── app.py                 # Flask backend application  
 ├── train_model.py         # Script to train and save the ML model  
 ├── model.pkl              # Trained model file  
