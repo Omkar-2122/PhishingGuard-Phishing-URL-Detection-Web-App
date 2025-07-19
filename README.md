@@ -27,18 +27,24 @@ PhishingGuard is a real-time web application that detects and classifies phishin
 
 ---
 
+<details> <summary>Alternative using triple backticks</summary>
+markdown
+Copy
+Edit
+```
 PhishingGuard/
-├── app.py                 # Flask backend application
-├── train_model.py         # Script to train and save the ML model
-├── model.pkl              # Trained model file
-├── phishing_dataset.csv   # Dataset used for training
-├── requirements.txt       # List of required Python packages
-├── static/
-│   └── style.css          # CSS styles
-├── templates/
-│   └── index.html         # Frontend UI for the app
+├── app.py                 # Flask backend application  
+├── train_model.py         # Script to train and save the ML model  
+├── model.pkl              # Trained model file  
+├── phishing_dataset.csv   # Dataset used for training  
+├── requirements.txt       # List of required Python packages  
+├── static/  
+│   └── style.css          # CSS styles  
+├── templates/  
+│   └── index.html         # Frontend UI for the app  
 └── README.md              # Project documentation
-
+```
+</details>
 ---
 
 
