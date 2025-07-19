@@ -82,7 +82,3 @@ Omkar Chavan
 ⚠️ Disclaimer
 For educational purposes only.
 Do not rely on this tool as a complete security solution.
-
----
-
-Let me know if you want it as a downloadable `.md` or `.pdf`.
